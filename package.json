@@ -1,7 +1,16 @@
 {
-  "name": "vue-file-uploader",
+  "name": "elkood-file-uploader",
   "version": "0.1.0",
-  "private": true,
+  "main": "./dist/FileUploader.umd.js",
+  "module": "./dist/FileUploader.es.js",
+  "private": false,
+  "exports": {
+    ".": {
+      "import": "./dist/FileUploader.es.js ",
+      "require": "./dist/FileUploader.umd.js"
+    },
+    "./dist/style/file_uploader.css": "./dist/style/file_uploader.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -12,6 +21,7 @@
   },
   "dependencies": {
     "@types/uuid": "^9.0.0",
+    "axios": "^1.3.3",
     "compressorjs": "^1.1.1",
     "sass": "^1.58.1",
     "uuid": "^9.0.0",

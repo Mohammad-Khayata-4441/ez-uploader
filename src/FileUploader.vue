@@ -13,7 +13,7 @@ interface fileDto {
 }
 // Props 
 type propsType = {
-  url?: string | string[],
+  url?: string | string[]
   base64?: boolean,
   quality?: number,
   contain?: boolean,
@@ -25,6 +25,11 @@ type propsType = {
   file?: File | null
   maxSize?: number,
   maxWidth?: number,
+
+  deleteUrlBtn?: boolean,
+  downloadBtn?: boolean,
+  openBtn?: boolean,
+
   modelValue?: File | File[] | null,
   maxHeight?: number,
   deletedUrls?: string[],
@@ -37,11 +42,16 @@ const props = withDefaults(defineProps<propsType>(), {
   deletedUrls: () => [],
   file: null,
   quality: 0.8,
+  deleteUrlBtn: true,
+  downloadBtn: false,
+  openBtn: true
 })
+
+
 //Emits
 const emit = defineEmits(['update:modelValue', 'update:url', 'update:deletedUrls'])
 // Bindings 
-const { getFileExt, getFileType } = useFile()
+const { getFileExt, getFileType, downloadFile } = useFile()
 const attrs = useAttrs()
 // State 
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -110,13 +120,17 @@ async function setFiles(filesList: FileList) {
       localFiles.value = []
       localUrls.value = []
     }
-    
+
+
     localFiles.value.push({
       file,
       id: uuid(),
       type: fileType,
       url: URL.createObjectURL(file)
     })
+
+
+
   }
   uploadEvent()
 }
@@ -147,10 +161,9 @@ function dragOverHandler(ev: any) {
 }
 function deleteUrl(e: any, url: string) {
   e.stopImmediatePropagation()
-
   deletedUrls.value.push(url);
   localUrls.value = localUrls.value.filter(u => u !== url)
-  emit('update:deletedUrls', deletedUrls)
+  emit('update:deletedUrls', deletedUrls.value)
 }
 function initialize() {
   if (props.url) {
@@ -188,8 +201,6 @@ initialize()
 
     <button type="button" class="vue-file-uploader-btn" @click="showUploadFileWindow" @drop="dropHandler"
       @dragover="dragOverHandler">
-
-
       <slot>
         <span class="placeholder"> Click Or Drop File Here </span>
         <img src="@/assets/upload-1.svg?url" height="45" alt="">
@@ -201,13 +212,32 @@ initialize()
         <div v-for="(src, i) in localUrls" :key="i" class="vue-file-uploader-preview-item" :class="previwerItemClass">
           <img :src="src" :class="previewImageClass" class="preview-img">
           <div class="preview-item-overlay">
-            <button :id="`delete-btn-${i}`" :class="deleteBtnClass" class="vue-file-uploader-preview-item-delete-btn"
-              @click="deleteUrl($event, src)">
-              <slot name="delete-btn">
-                <img height="30" src="@/assets/delete-file.svg?url" />
 
-              </slot>
-            </button>
+            <div class="action-btns">
+
+              <button :id="`delete-btn-${i}`" class="action-btn" :class="deleteBtnClass" @click="deleteUrl($event, src)">
+                <slot name="delete-btn">
+                  <img height="30" src="@/assets/delete-file.svg?url" />
+
+                </slot>
+
+              </button>
+              <button v-if="downloadBtn" :id="`delete-btn-${i}`" :class="deleteBtnClass" class="action-btn"
+                @click="$event.stopImmediatePropagation(); downloadFile(src)">
+                <slot name="delete-btn">
+                  <img height="30" src="@/assets/download.svg?url" />
+                </slot>
+              </button>
+
+
+              <a v-if="openBtn" target="_blank" :href="src" :id="`delete-btn-${i}`"  @click="$event.stopImmediatePropagation()" :class="deleteBtnClass" class="action-btn">
+                <img height="30" src="@/assets/expand.svg?url" />
+              </a>
+
+
+            </div>
+
+
           </div>
         </div>
 
@@ -225,13 +255,18 @@ initialize()
 
               </slot>
             </div>
+            <div class="action-btns">
 
-            <button :id="`delete-btn-${i}`" :class="deleteBtnClass" class="vue-file-uploader-preview-item-delete-btn"
-              @click="deleteFile($event, file.id)">
-              <slot name="delete-btn">
+              <button :id="`delete-btn-${i}`" :class="deleteBtnClass" class="action-btn"
+                @click="deleteFile($event, file.id)">
                 <img height="30" src="@/assets/delete-file.svg?url" />
-              </slot>
-            </button>
+              </button>
+
+              <a v-if="openBtn" target="_blank" :href="file.url" :id="`delete-btn-${i}`" :class="deleteBtnClass" class="action-btn" @click="$event.stopImmediatePropagation()">
+                <img height="30" src="@/assets/expand.svg?url" />
+              </a>
+            </div>
+
           </div>
         </div>
 
@@ -240,7 +275,6 @@ initialize()
 
     <input :id="`file-uploader-${id}`" ref="fileInput" v-bind:="$attrs" type="file" hidden @change="clickHandler">
 
-
-</div>
+  </div>
 </template>
 
