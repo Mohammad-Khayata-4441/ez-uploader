@@ -1,6 +1,6 @@
 {
   "name": "elkood-file-uploader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/FileUploader.umd.js",
   "module": "./dist/FileUploader.es.js",
   "private": false,
