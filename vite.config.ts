@@ -4,9 +4,10 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import path from 'node:path'
+import dts from 'vite-plugin-dts'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue() ,svgLoader() ],
+  plugins: [vue() ,svgLoader() , dts()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -14,11 +15,13 @@ export default defineConfig({
   },
 
   build:{
+
     lib:{
       entry:path.resolve(__dirname , "src/main.ts"),
-      name:'file-uploader',
-      fileName:(format)=>`${format}.ts`
+      name:'ez-uploader',
+      fileName: (format) => `ez-uploader.${format}.js`,
     },
+
     rollupOptions:{
       external:['vue'],
       output:{
@@ -27,7 +30,8 @@ export default defineConfig({
         }
       }
     }
-  }
+  },
 
+  
 
 })
