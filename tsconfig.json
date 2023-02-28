@@ -11,22 +11,20 @@
       "path": "./tsconfig.vitest.json"
     }
   ],
-  {
-    "compilerOptions": {
-      //...
-      "allowJs": true,
-      "allowSyntheticDefaultImports": true,
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "declaration": true,
-      "outDir": "dist",
-      "declarationDir": "dist",
-      "baseUrl": ".",
-      "paths": {
-        "@/*": [
-          "./src/*"
-        ]
-      }
+  "compilerOptions": {
+    //...
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
     },
     "include": [
       "src/**/*.ts",

@@ -5,6 +5,10 @@ import { hasOwn, isArray } from '@vue/shared'
 import Compressor from 'compressorjs'
 import { v4 as uuid } from 'uuid'
 import { watch, computed, ref, useAttrs, withDefaults } from 'vue'
+import Upload from './icons/Upload.vue'
+import DeleteFile from './icons/DeleteFile.vue'
+import Expand from './icons/Expand.vue'
+
 interface fileDto {
   file: File | undefined
   url: string
@@ -59,11 +63,9 @@ const id = Date.now() * (Math.random() * 10000)
 const localFiles = ref<fileDto[]>([])
 const localUrls = ref<string[]>([])
 const deletedUrls = ref<string[]>([])
-
 // Getters 
 const isMulti = computed(() => hasOwn(attrs, 'multiple'))
 const modelValue = computed(() => props.modelValue);
-
 // Functions 
 function showUploadFileWindow() {
   if (fileInput.value)
@@ -197,27 +199,29 @@ initialize()
 </script>
 
 <template>
-  <div class="vue-file-uploader">
-
-    <button type="button" class="vue-file-uploader-btn" @click="showUploadFileWindow" @drop="dropHandler"
+  <div class="elkood-file-uploader">
+    <button type="button" class="elkood-file-uploader-btn" @click="showUploadFileWindow" @drop="dropHandler"
       @dragover="dragOverHandler">
       <slot>
         <span class="placeholder"> Click Or Drop File Here </span>
-        <img src="@/assets/upload-1.svg?url" height="45" alt="">
+        <!-- <img src="@/assets/upload-1.svg?url" height="45" alt=""> -->
+        <Upload height="45"></Upload>
       </slot>
 
 
-      <div class="vue-file-uploader-preview" :class="[{ multi: isMulti }, previwerContainerClass]">
+      <div class="elkood-file-uploader-preview" :class="[{ multi: isMulti }, previwerContainerClass]">
 
-        <div v-for="(src, i) in localUrls" :key="i" class="vue-file-uploader-preview-item" :class="previwerItemClass">
+        <div v-for="(src, i) in localUrls" :key="i" class="elkood-file-uploader-preview-item" :class="previwerItemClass">
+
           <img :src="src" :class="previewImageClass" class="preview-img">
+
           <div class="preview-item-overlay">
 
             <div class="action-btns">
 
               <button :id="`delete-btn-${i}`" class="action-btn" :class="deleteBtnClass" @click="deleteUrl($event, src)">
                 <slot name="delete-btn">
-                  <img height="30" src="@/assets/delete-file.svg?url" />
+                  <DeleteFile height="30" />
 
                 </slot>
 
@@ -230,8 +234,9 @@ initialize()
               </button>
 
 
-              <a v-if="openBtn" target="_blank" :href="src" :id="`delete-btn-${i}`"  @click="$event.stopImmediatePropagation()" :class="deleteBtnClass" class="action-btn">
-                <img height="30" src="@/assets/expand.svg?url" />
+              <a v-if="openBtn" target="_blank" :href="src" :id="`delete-btn-${i}`"
+                @click="$event.stopImmediatePropagation()" :class="deleteBtnClass" class="action-btn">
+                <Expand height="20" />
               </a>
 
 
@@ -241,7 +246,7 @@ initialize()
           </div>
         </div>
 
-        <div v-for="(file, i) in localFiles" :key="file.id" class="vue-file-uploader-preview-item"
+        <div v-for="(file, i) in localFiles" :key="file.id" class="elkood-file-uploader-preview-item"
           :class="previwerItemClass">
           <img class="preview-img" :src="file.type === 'image' ? file.url : getUrl(`./assets/icons/${file.type}.png`)"
             :class="previewImageClass">
@@ -259,11 +264,12 @@ initialize()
 
               <button :id="`delete-btn-${i}`" :class="deleteBtnClass" class="action-btn"
                 @click="deleteFile($event, file.id)">
-                <img height="30" src="@/assets/delete-file.svg?url" />
+                <DeleteFile height="30" src="@/assets/delete-file.svg?url" />
               </button>
 
-              <a v-if="openBtn" target="_blank" :href="file.url" :id="`delete-btn-${i}`" :class="deleteBtnClass" class="action-btn" @click="$event.stopImmediatePropagation()">
-                <img height="30" src="@/assets/expand.svg?url" />
+              <a v-if="openBtn" target="_blank" :href="file.url" :id="`delete-btn-${i}`" :class="deleteBtnClass"
+                class="action-btn" @click="$event.stopImmediatePropagation()">
+                <Expand height="20" src="@/assets/expand.svg?url" />
               </a>
             </div>
 

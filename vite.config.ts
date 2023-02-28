@@ -7,31 +7,31 @@ import path from 'node:path'
 import dts from 'vite-plugin-dts'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue() ,svgLoader() , dts()],
+  plugins: [vue(), svgLoader(), dts()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
 
-  build:{
+  build: {
 
-    lib:{
-      entry:path.resolve(__dirname , "src/main.ts"),
-      name:'ez-uploader',
-      fileName: (format) => `ez-uploader.${format}.js`,
+    lib: {
+      entry: path.resolve(__dirname, "src/main.ts"),
+      name: 'elkood-file-uploader',
+      fileName: (format) => `elkood-file-uploader.${format}.js`,
     },
 
-    rollupOptions:{
-      external:['vue'],
-      output:{
-        globals:{
-          vue:'Vue'
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
         }
       }
     }
   },
 
-  
+
 
 })

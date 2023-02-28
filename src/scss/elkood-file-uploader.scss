@@ -1,4 +1,4 @@
-.vue-file-uploader {
+.elkood-file-uploader {
   &-btn {
     width: 100%;
     outline: none;
@@ -11,9 +11,17 @@
     color: #acacac;
     padding: 0.4rem;
     cursor: pointer;
+    transition: 0.5s;
+    svg {
+      transition: 0.5s;
+      stroke: #acacac;
+    }
     &:hover {
       border-color: #777;
       color: #777;
+      svg {
+        stroke: #777;
+      }
     }
     .placeholder {
       font-size: 14px;
@@ -22,15 +30,16 @@
     }
   }
 }
-.vue-file-uploader-preview {
+.elkood-file-uploader-preview {
   max-height: 350px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   * {
     font-family: sans-serif;
   }
+
   &-item {
     position: relative;
+
     .preview-img {
       width: 100%;
       max-height: 300px;
@@ -49,7 +58,7 @@
       top: 0;
       background-color: rgba(36, 36, 36, 0.729);
       transition: 0.5s;
-      border-radius: .4rem;
+      border-radius: 0.4rem;
 
       .info {
         padding: 0.5rem;
@@ -69,8 +78,6 @@
           font-size: 15px;
         }
       }
-
-
     }
 
     &:hover {
@@ -90,6 +97,7 @@
     .preview-img {
       height: 150px;
       object-fit: contain;
+      border-radius: 0.5rem;
     }
 
     .info {
@@ -119,7 +127,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      img{
+      img {
         height: 24px;
       }
       &:hover {
