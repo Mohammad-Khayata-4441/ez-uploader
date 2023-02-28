@@ -15,7 +15,9 @@ interface fileDto {
   id: string
   type: FileType,
 }
+
 // Props 
+
 type propsType = {
   url?: string | string[]
   base64?: boolean,
@@ -199,19 +201,19 @@ initialize()
 </script>
 
 <template>
-  <div class="elkood-file-uploader">
-    <button type="button" class="elkood-file-uploader-btn" @click="showUploadFileWindow" @drop="dropHandler"
+  <div class="ez-uploader">
+    <button type="button" class="ez-uploader-btn" @click="showUploadFileWindow" @drop="dropHandler"
       @dragover="dragOverHandler">
       <slot>
         <span class="placeholder"> Click Or Drop File Here </span>
         <!-- <img src="@/assets/upload-1.svg?url" height="45" alt=""> -->
-        <Upload height="45"></Upload>
+        <Upload class="upload-icon" height="45"></Upload>
       </slot>
 
 
-      <div class="elkood-file-uploader-preview" :class="[{ multi: isMulti }, previwerContainerClass]">
+      <div class="ez-uploader-preview" :class="[{ multi: isMulti }, previwerContainerClass]">
 
-        <div v-for="(src, i) in localUrls" :key="i" class="elkood-file-uploader-preview-item" :class="previwerItemClass">
+        <div v-for="(src, i) in localUrls" :key="i" class="ez-uploader-preview-item" :class="previwerItemClass">
 
           <img :src="src" :class="previewImageClass" class="preview-img">
 
@@ -246,8 +248,7 @@ initialize()
           </div>
         </div>
 
-        <div v-for="(file, i) in localFiles" :key="file.id" class="elkood-file-uploader-preview-item"
-          :class="previwerItemClass">
+        <div v-for="(file, i) in localFiles" :key="file.id" class="ez-uploader-preview-item" :class="previwerItemClass">
           <img class="preview-img" :src="file.type === 'image' ? file.url : getUrl(`./assets/icons/${file.type}.png`)"
             :class="previewImageClass">
           <div class="preview-item-overlay">

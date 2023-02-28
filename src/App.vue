@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import FileUploader from './ElkoodFileUploader.vue';
-import './scss/elkood-file-uploader.scss';
+import FileUploader from './ez-uploader.vue';
+import './scss/ez-uploader.scss';
 
 const urls = ref(['https://www.planetsport.com/image-library/square/1200/a/argentinas-lionel-messi-poses-with-the-fifa-world-cup-trophy.jpg'])
 const url = ref('https://www.planetsport.com/image-library/square/1200/a/argentinas-lionel-messi-poses-with-the-fifa-world-cup-trophy.jpg')

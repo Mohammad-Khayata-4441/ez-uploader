@@ -4,10 +4,11 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import path from 'node:path'
-import dts from 'vite-plugin-dts'
+import minimist from 'minimist';
+const { f } = minimist(process.argv.slice(2));
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader(), dts()],
+  plugins: [vue(), svgLoader()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -15,21 +16,25 @@ export default defineConfig({
   },
 
   build: {
+    emptyOutDir: false,
 
     lib: {
-      entry: path.resolve(__dirname, "src/main.ts"),
-      name: 'elkood-file-uploader',
-      fileName: (format) => `elkood-file-uploader.${format}.js`,
+      formats: f === 'iife' ? ['iife'] : ['es', 'umd'],
+      entry: path.resolve(__dirname, 'src', "main.ts"),
+      name: 'ez-uploader',
+      fileName: (format) => `ez-uploader`,
     },
 
     rollupOptions: {
-      external: ['vue'],
+      external: f === 'iife' ? ['vue'] : ['vue', 'date-fns', 'date-fns-tz'],
       output: {
         globals: {
-          vue: 'Vue'
-        }
-      }
-    }
+          vue: 'Vue',
+          'date-fns': 'dateFns',
+          'date-fns-tz': 'dateFnsTz',
+        },
+      },
+    },
   },
 
 

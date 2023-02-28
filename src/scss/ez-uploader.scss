@@ -1,4 +1,4 @@
-.elkood-file-uploader {
+.ez-uploader {
   &-btn {
     width: 100%;
     outline: none;
@@ -12,14 +12,14 @@
     padding: 0.4rem;
     cursor: pointer;
     transition: 0.5s;
-    svg {
+    .upload-icon {
       transition: 0.5s;
       stroke: #acacac;
     }
     &:hover {
       border-color: #777;
       color: #777;
-      svg {
+      .upload-icon {
         stroke: #777;
       }
     }
@@ -30,7 +30,7 @@
     }
   }
 }
-.elkood-file-uploader-preview {
+.ez-uploader-preview {
   max-height: 350px;
   overflow: hidden;
   * {
