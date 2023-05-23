@@ -64,7 +64,7 @@ const emit = defineEmits<{
   (e: "update:modelValue", files: File | File[] | null): void;
   (e: "update:url", url?: string | string[]): void;
   (e: "update:deletedUrls", urls: string[]): void;
-  (e: "validationError", error: errorType): void;
+  (e: "validationError", error: errorType |null): void;
 }>();
 // Bindings
 const { getFileExt, getFileType, downloadFile } = useFile();
@@ -177,7 +177,7 @@ function uploadEvent() {
   if (isMulti.value) {
     emit(
       "update:modelValue",
-      localFiles.value.map(({ file }) => file)
+      localFiles.value.map(({ file }) => file as File)
     );
     emit(
       "update:url",
@@ -186,7 +186,7 @@ function uploadEvent() {
   } else {
     emit(
       "update:modelValue",
-      localFiles.value.length ? localFiles.value[0].file : null
+      localFiles.value.length ? localFiles.value[0].file as File : null
     );
     emit("update:url", localFiles.value.length ? localFiles.value[0].url : "");
   }

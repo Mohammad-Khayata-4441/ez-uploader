@@ -6,6 +6,7 @@
   "files": [
     "dist"
   ],
+  
   "main": "./dist/ez-uploader.umd.cjs",
   "module": "./dist/ez-uploader.js",
   "types": "./dist/main.d.ts",
