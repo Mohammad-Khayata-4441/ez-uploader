@@ -14,10 +14,10 @@
   "types": "./dist/ez-uploader.vue.d",
   "exports": {
     ".": {
-      "import": "./dist/ez-uploader.es.js ",
-      "require": "./dist/ez-uploader.umd.cjs"
+      "import": "./dist/ez-uploader.mjs ",
+      "require": "./dist/ez-uploader.umd.js"
     },
-    "./dist/style/ez-uploader.css": "./dist/style/ez-uploader.css"
+    "./dist/style/ez-uploader.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
