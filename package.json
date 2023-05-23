@@ -1,6 +1,8 @@
 {
   "name": "ez-uploader",
   "license": "MIT",
+  "author": "Mohammad Khayata",
+  
   "files": [
     "dist/*",
     "src/**/*",
