@@ -2,7 +2,7 @@
   "name": "ez-uploader",
   "license": "MIT",
   "author": "Mohammad Khayata",
-  
+
   "files": [
     "dist/*",
     "src/**/*",
@@ -10,9 +10,9 @@
     "LICENSE",
     "README.md"
   ],
-  "main": "./dist/ez-uploader.umd.cjs",
-  "module": "./dist/ez-uploader.es.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/ez-uploader.mjs",
+  "module": "./dist/ez-uploader.mjs",
+  "types": "./dist/ez-uploader.vue.d",
   "exports": {
     ".": {
       "import": "./dist/ez-uploader.es.js ",
