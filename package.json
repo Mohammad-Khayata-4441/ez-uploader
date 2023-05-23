@@ -1,6 +1,7 @@
 {
   "name": "ez-uploader",
   "license": "MIT",
+  "type": "module",
   "author": "Mohammad Khayata",
   "files": [
     "dist/*",
@@ -9,13 +10,13 @@
     "LICENSE",
     "README.md"
   ],
-  "main": "./dist/ez-uploader.mjs",
-  "module": "./dist/ez-uploader.mjs",
+  "main": "./dist/ez-uploader.umd.cjs",
+  "module": "./dist/ez-uploader.js",
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/ez-uploader.mjs ",
-      "require": "./dist/ez-uploader.umd.js"
+      "import": "./dist/ez-uploader.js ",
+      "require": "./dist/ez-uploader.umd.cjs"
     },
     "./dist/style/ez-uploader.css": "./dist/style.css"
   },
