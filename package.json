@@ -6,7 +6,6 @@
   "files": [
     "dist"
   ],
-  
   "main": "./dist/ez-uploader.umd.cjs",
   "module": "./dist/ez-uploader.js",
   "types": "./dist/main.d.ts",
@@ -62,5 +61,5 @@
     "type": "git",
     "url": "https://github.com/Mohammad-Khayata-4441/ez-uploader.git"
   },
-  "version": "0.2.5"
+  "version": "0.2.6"
 }
