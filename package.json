@@ -13,8 +13,7 @@
     ".": {
       "import": "./dist/ez-uploader.js ",
       "require": "./dist/ez-uploader.umd.cjs"
-    },
-    "./dist/style/ez-uploader.css": "./dist/style.css"
+    }
   },
   "scripts": {
     "dev": "vite",
