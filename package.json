@@ -11,7 +11,7 @@
   ],
   "main": "./dist/ez-uploader.mjs",
   "module": "./dist/ez-uploader.mjs",
-  "types": "./dist/ez-uploader.vue.d",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/ez-uploader.mjs ",
