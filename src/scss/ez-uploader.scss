@@ -1,6 +1,7 @@
 .ez-uploader {
-  &-btn {
-    width: 100%;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  &-label {
     outline: none;
     display: flex;
     flex-direction: column;
