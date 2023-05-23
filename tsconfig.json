@@ -10,6 +10,7 @@
   ],
   "compilerOptions": {
     "allowJs": true,
+    "module": "ESNext",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
@@ -17,7 +18,7 @@
     "downlevelIteration": true,
     "outDir": "dist",
     "declarationDir": "dist",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": [
         "./src/*"

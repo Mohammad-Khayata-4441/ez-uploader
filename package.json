@@ -4,11 +4,7 @@
   "type": "module",
   "author": "Mohammad Khayata",
   "files": [
-    "dist/*",
-    "src/**/*",
-    "index.d.ts",
-    "LICENSE",
-    "README.md"
+    "dist"
   ],
   "main": "./dist/ez-uploader.umd.cjs",
   "module": "./dist/ez-uploader.js",
