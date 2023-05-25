@@ -17,7 +17,7 @@ const onValidationError = (e: ErrorType | null) => {
 <template>
   <div class="docs-container">
     <nav>
-      <a href="">github</a>
+      <a href="https://github.com/Mohammad-Khayata-4441/ez-uploader/tree/v0.4">github</a>
       <a href="">npm</a>
     </nav>
     <h1 class="title">Vue Ez Uploader</h1>
