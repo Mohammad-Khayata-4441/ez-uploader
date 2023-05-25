@@ -1,11 +1,12 @@
 @use 'base/variables';
 
 .ez-uploader {
-
+  *{
+    box-sizing: border-box;
+  }
   .ez-uploader__container {
     display: flex;
     background-color: transparent;
-    padding: 0.5rem;
     min-height:variables.$ez-uploader-container-min-height;
 
     border: 2px dashed variables.$ez-uploader-border-color;
@@ -14,9 +15,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     transition: variables.$ez-uploader-hover-transition;
     cursor: pointer;
+    padding: 0.5rem;
   }
   .ez-uploader__placeholder {
     display: flex;
@@ -36,19 +37,13 @@
 
   }
   .ez-uploader__preview{
-    max-height: variables.$ez-uploader-preview-max-height;
-    overflow: auto;
-    padding: 0.4rem;
-    margin-top: 0.5rem;
+    height: variables.$ez-uploader-preview-max-height;
     .ez-uploader__preview__preview-item{
-      padding: 5px;
-      margin-bottom: 10px;
-      position: relative;
+       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       .ez-uploader__preview__preview-item__img{
-        height: 100%;
         max-height: variables.$ez-uploader-preview-max-height;
         border-radius: variables.$ez-uploader-container-rounded;
       }
@@ -67,8 +62,8 @@
         opacity: 0;
         z-index: 10;
         top: 0;
+        padding: 0.5rem;
         .ez-uploader__preview__preview-item__overlay__text{
-          padding: 0.5rem;
           display: flex;
           flex-direction: column;
           gap: 10px;
@@ -97,7 +92,14 @@
       }
     }
 
-    
+    &--multi{
+    overflow: auto;
+    margin-top: 0.5rem;
+    .ez-uploader__preview__preview-item{
+
+      margin-bottom: 10px;
+    }
+    }
     
   }
   .ez-uploader__action-btn {
