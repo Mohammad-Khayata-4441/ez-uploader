@@ -175,9 +175,6 @@ async function setFiles(filesList: FileList) {
 }
 
 function uploadEvent() {
-  console.log('before upload', localFiles.value)
-
-
   if (isMulti.value) {
     emit("update:modelValue", localFiles.value.map(({ file }) => file as File)
     );
@@ -202,7 +199,8 @@ function dropHandler(ev: any) {
 function dragOverHandler(ev: any) {
   ev.preventDefault();
 }
-function deleteUrl(url: string, i?: number) {
+function deleteUrl(event: Event, url: string, i?: number) {
+  event.stopImmediatePropagation()
   deletedUrls.value.push(url);
   if (i !== undefined) {
     localUrls.value = localUrls.value.filter((u, index) => index !== i);
@@ -253,7 +251,8 @@ initialize();
       </div>
 
 
-      <div v-if="localFiles.length" class="ez-uploader__preview" :class="[{ 'ez-uploader__preview--multi': isMulti }, previwerContainerClass]">
+      <div v-if="localFiles.length || url?.length" class="ez-uploader__preview"
+        :class="[{ 'ez-uploader__preview--multi': isMulti }, previwerContainerClass]">
         <div v-for="(file, i) in localFiles" :key="file.id" class="ez-uploader__preview__preview-item"
           :class="previwerItemClass">
           <img class="ez-uploader__preview__preview-item__img" :src="file.type === 'image'
@@ -286,46 +285,48 @@ initialize();
 
 
         </div>
+        <div v-for="(url, i) in localUrls" :key="`url-${i}`" class="ez-uploader__preview__preview-item"
+          :class="previwerItemClass">
+          <img class="ez-uploader__preview__preview-item__img" :src="getFileType(getFileExt(url)) === 'image'
+            ? url
+            : `/icons/${getFileType(getFileExt(url))}.png`
+            " :class="previewImageClass" />
+
+
+          <div class="ez-uploader__preview__preview-item__overlay">
+            <div class="ez-uploader__preview__preview-item__overlay__text">
+              <slot name="info-overlay">
+                <span class="ez-uploader__preview__preview-item__overlay__text__name">{{ url }}</span>
+                <span>Type : {{ getFileType(getFileExt(url)) }}</span>
+              </slot>
+            </div>
+            <div class="ez-uploader__preview-item__overlay__actions">
+              <button :id="`delete-btn-${i}`" :class="deleteBtnClass" class="ez-uploader__action-btn"
+                @click="deleteUrl($event, url, i)">
+                <Times src="@/assets/delete-file.svg?url" />
+              </button>
+
+              <a v-if="openBtn" target="_blank" :href="url" :id="`delete-btn-${i}`" :class="deleteBtnClass"
+                class="ez-uploader__action-btn" @click="$event.stopImmediatePropagation()">
+                <Preview class="ez-uploader__icon"></Preview>
+              </a>
+            </div>
+          </div>
+
+
+
+        </div>
       </div>
 
 
-    </div>
 
-    <div v-if="url?.length" class="ez-uploader__attached-container">
-      <ul v-if="isMulti" class="ez-uploader__attached-container ez-uploader__attached-container--multi">
-        <li v-for="u, i in url" class="ez-uploader__attached-item ez-uploader__attached-item">
-          <img :src="u" height="100" width="100" alt="" class="ez-uploader__attached-item__img">
-          <h5 class="ez-uploader__attached-item__name">{{ urlFileName(u) }}</h5>
-          <div class="ez-uploader__attached-item__actions">
+    
 
-            <button class="ez-uploader__action-btn" @click="deleteUrl(u, i)">
-              <Times class="ez-uploader__icon"></Times>
-
-            </button>
-            <a v-if="openBtn" target="_blank" :href="u" :id="`delete-btn-${i}`" :class="deleteBtnClass"
-              class="ez-uploader__action-btn">
-              <Preview class="ez-uploader__icon"></Preview>
-            </a>
-          </div>
-        </li>
-      </ul>
-      <ul v-else class="uploader__attached-container ez-uploader__attached-container--single">
-        <li class="ez-uploader__attached-item" v-if="(typeof url === 'string')">
-          <img class="ez-uploader__attached-item__img" :src="url" height="100" width="100" alt="">
-          <h5 class="ez-uploader__attached-item__name">{{ urlFileName(url) }}</h5>
-
-          <button class="ez-uploader__attached-item__actions" @click="deleteUrl(url)">
-            <Times></Times>
-          </button>
-          <a v-if="openBtn" target="_blank" :href="url" :class="deleteBtnClass" class="ez-uploader__action-btn">
-            <Preview class="ez-uploader__icon"></Preview>
-          </a>
-
-        </li>
-      </ul>
 
 
     </div>
+
+
 
     <input :accept="accept" class="ez-uploader__input" :id="`file-uploader-${id}`" ref="fileInput" v-bind:="$attrs"
       type="file" hidden @change="clickHandler" />

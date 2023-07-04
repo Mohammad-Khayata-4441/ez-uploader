@@ -2,7 +2,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { ErrorType } from "./types/ValidationError";
 import hljs from 'highlight.js'
-import EzUploader from './lib/main';
+
+import urls from './components/examples/urls.vue'
+import basic from './components/examples/basic.vue'
+import multiple from './components/examples/multiple.vue'
 import 'highlight.js/styles/vs2015.css';
 onMounted(() => {
   hljs.highlightAll()
@@ -10,15 +13,11 @@ onMounted(() => {
 
 
 
-const urls = ref([
-  'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',
-])
 
 
 const files = ref([]);
-const file = ref(null)
+
+
 const props = {
   base64: { desc: 'Provide Base 64 for output', default: "false", type: "boolean" },
   contain: { desc: 'Contain Preview Images', default: "true", type: "boolean" },
@@ -63,134 +62,9 @@ const onValidationError = (e: ErrorType | null) => {
     <div class="usage">
 
       <h2>Examples</h2>
-      <div class="example">
-
-        <div class="form">
-
-          <div class="form-control">
-            <label>Single File (Default)</label>
-            <EzUploader v-model="file" />
-          </div>
-
-          <div>
-            <p style="font-size:small; font-family: sans-serif; color: red;" v-if="error">
-              {{ error }}
-            </p>
-          </div>
-
-        </div>
-
-
-        <pre>
-
-      <code >
-        {{
-          `
-        <script setup lang="ts">
-        
-          import EzUploader from 'ez-uploader'
-
-          const file = ref(null)
-
-        </script>
-
-        <template>
-          
-            <EzUploader v-model="file"></EzUploader>
-
-        </template>
-          `
-        }}
-      </code>
-       </pre>
-
-      </div>
-      <div class="example">
-
-        <div class="form">
-
-          <div class="form-control">
-            <label>Multi Files </label>
-            <EzUploader multiple v-model="files" />
-          </div>
-
-          <div>
-            <p style="font-size:small; font-family: sans-serif; color: red;" v-if="error">
-              {{ error }}
-            </p>
-          </div>
-
-        </div>
-
-
-        <pre>
-
-      <code >
-        {{
-          `
-        <script setup lang="ts">
-        
-          import EzUploader from 'ez-uploader'
-
-          const files = ref([])
-
-        </script>
-
-        <template>
-          
-            <EzUploader  v-model="files"></EzUploader>
-
-        </template>
-          `
-        }}
-      </code>
-       </pre>
-
-      </div>
-      <div class="example">
-
-        <div class="form">
-
-          <div class="form-control">
-            <label>Accept (pdf , docs) </label>
-            <EzUploader accept=".pdf,.docs" multiple v-model="files" />
-          </div>
-
-          <div>
-            <p style="font-size:small; font-family: sans-serif; color: red;" v-if="error">
-              {{ error }}
-            </p>
-          </div>
-
-        </div>
-
-
-        <pre>
-
-      <code >
-        {{
-          `
-        <script setup lang="ts">
-        
-          import EzUploader from 'ez-uploader'
-
-          const files = ref([])
-
-        </script>
-
-        <template>
-          
-            <EzUploader  accept=".pdf,.docs" 
-            v-model="files">
-            </EzUploader>
-
-        </template>
-          `
-        }}
-      </code>
-       </pre>
-
-      </div>
+      <basic></basic>
+      <multiple></multiple>
+      <urls></urls>
     </div>
 
     <div class="props">
@@ -258,6 +132,7 @@ pre {
 
   table {
 
+      border-collapse: collapse;
     thead {
       margin-bottom: 24px;
 
@@ -268,7 +143,11 @@ pre {
     }
 
     td {
-      padding: 10px 0;
+      border: 1px solid gray;
+      
+      padding: 10px;
+      border-left: none;
+      border-right: none;
     }
   }
 }

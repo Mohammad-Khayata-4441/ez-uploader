@@ -134,44 +134,4 @@
   
 }
 
-
-.ez-uploader-urls {
-  border: #acacac 2px dashed;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-
-  ul {
-    list-style: none;
-    padding: 0.2rem 0.5rem;
-  }
-
-  li {
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-
-    img {
-      transition: 0.3s;
-      object-fit: contain;
-      border-radius: 5px;
-      color: white;
-      height: 65px;
-      width: 65px;
-
-      &:hover {
-        transform: scale(1.5);
-      }
-    }
-
-    h5 {
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-    }
-  }
-}
-
+ 
