@@ -205,11 +205,9 @@ function dragOverHandler(ev: any) {
 function deleteUrl(url: string, i?: number) {
   deletedUrls.value.push(url);
   if (i !== undefined) {
-    console.log('delete single url')
     localUrls.value = localUrls.value.filter((u, index) => index !== i);
   }
   else {
-    console.log('delete multi urls')
     localUrls.value = localUrls.value.filter((u) => u !== url);
   }
   emit("update:deletedUrls", deletedUrls.value);
@@ -217,7 +215,6 @@ function deleteUrl(url: string, i?: number) {
 }
 function initialize() {
   if (props.url) {
-    console.log("url", props.url);
     if (typeof props.url === "string") localUrls.value.push(props.url);
     else if (Array.isArray(props.url))
       localUrls.value = [...localUrls.value, ...props.url];
