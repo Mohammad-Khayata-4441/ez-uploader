@@ -25,7 +25,7 @@ const file = ref(null);
 <script setup lang="ts">
 
 import EzUploader from 'ez-uploader'
-import "ez-uploader/styles"
+import "ez-uploader/style"
 
 const file = ref(null)
 

@@ -11,6 +11,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/lib/main.ts'),
       name: 'ez-uploader',
       fileName: 'ez-uploader',
+      
     },
     rollupOptions: {
       external: ['vue'],
@@ -22,3 +23,4 @@ export default defineConfig({
     },
   },
 })
+// https://github.com/vitejs/vite/issues/9656

@@ -36,6 +36,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "build:docs":"vite build --config vite-docs.config.ts",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
