@@ -1,42 +1,24 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
-import svgLoader from 'vite-svg-loader'
-import path from 'node:path'
-import minimist from 'minimist';
-const { f } = minimist(process.argv.slice(2));
+import dts from 'vite-plugin-dts'
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-
+  plugins: [vue(), dts()],
   build: {
-    emptyOutDir: false,
-
     lib: {
-      formats: f === 'iife' ? ['iife'] : ['es', 'umd'],
-      entry: path.resolve(__dirname, 'src', "main.ts"),
+      entry: resolve(__dirname, 'src/lib/main.ts'),
       name: 'ez-uploader',
-      fileName: (format) => `ez-uploader`,
+      fileName: 'ez-uploader',
     },
-
     rollupOptions: {
-      external: f === 'iife' ? ['vue'] : ['vue', 'date-fns', 'date-fns-tz'],
+      external: ['vue'],
       output: {
         globals: {
           vue: 'Vue',
-          'date-fns': 'dateFns',
-          'date-fns-tz': 'dateFnsTz',
         },
       },
     },
   },
-
-
-
 })

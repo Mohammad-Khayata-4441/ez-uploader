@@ -65,7 +65,6 @@ export const useFile = () => {
     let fileType:FileType ='image' ;
 
     fileExtentions.forEach((exts , key)=>{
-      
       if(isOfType(fileExt , key))
 
       fileType = key
@@ -100,9 +99,8 @@ export const useFile = () => {
   }
 
   async function downloadFile(fileUrl: string,config:AxiosRequestConfig = {responseType:'blob'}) {
-     axios.get(fileUrl,{...config}).then(({ data }) => {
+     axios.get(fileUrl,{...config}).then(({ data }:any) => {
        const downloadUrl = window.URL.createObjectURL(new Blob([data]))
-      console.log(downloadUrl)
       const link = document.createElement('a')
       link.href = downloadUrl
       link.setAttribute('download', downloadUrl) // any other extensio
