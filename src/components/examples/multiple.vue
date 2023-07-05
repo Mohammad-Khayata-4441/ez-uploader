@@ -1,7 +1,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import EzUploader from '../../lib/main'
+import EzUploader from '../ez-uploader.vue'
 const files = ref([]);
 </script>
 <template>

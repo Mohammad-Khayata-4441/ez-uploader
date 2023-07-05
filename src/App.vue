@@ -6,6 +6,7 @@ import hljs from 'highlight.js'
 import urls from './components/examples/urls.vue'
 import basic from './components/examples/basic.vue'
 import multiple from './components/examples/multiple.vue'
+import './scss/ez-uploader.scss'
 import 'highlight.js/styles/vs2015.css';
 onMounted(() => {
   hljs.highlightAll()
@@ -23,14 +24,15 @@ const props = {
   contain: { desc: 'Contain Preview Images', default: "true", type: "boolean" },
   cover: { desc: 'Cover Preview Images', default: "false", type: "boolean" },
   deleteBtnClass: { desc: 'class for delete btn', default: "", type: "string" },
+  maxSize: { desc: 'max file size per mb', default: "", type: "number" },
+  maxCount: { desc: 'max count of files in multiple', default: "", type: "number" },
   'url': { desc: "in modify pages ... you can preview the old image by providing its url as prop , and you can delete some if they are multipe using v-mode:deleted-urls ", default: "[ ]", type: "string" },
   'v-model:deleted-urls': { desc: "When You use v-model:url  , you can access the deleted images (urls)", default: "", type: "string[]" },
-  // file: null,
   accept: { desc: 'Set File Accept For the HTML File input', default: "image/*", type: "string (HTML Accept attribute)" },
   quality: { desc: 'Compress the quality of the uploaded image', default: "1", type: "number (0.1 to 1)" },
-  // deleteUrlBtn: { desc: 'Display Delete ', default: "true", type: "string (HTML Accept attribute)" },
-  // downloadBtn: { desc: 'Set File Accept For the HTML File input', default: "true", type: "string (HTML Accept attribute)" },
-  // openBtn: true,
+  downloadBtn: { desc: 'usefull when you use image url ... it helps user to download the old image', default: "false", type: "boolean" },
+  deleteUrlBtn: { desc: 'hide or show delete btn for urls ', default: "true", type: "boolean" },
+  openBtn: { desc: 'hide or show preview button for urls ', default: "true", type: "boolean" },
 }
 
 
@@ -49,15 +51,25 @@ const onValidationError = (e: ErrorType | null) => {
     </nav>
 
     <div class="title">Vue Ez Uploader</div>
+    <p>Ez File Input Component For Vue.js (v3)</p>
 
+    <ul>
+      <li>✅ Built using TypeScritp 💙</li>
+      <li>✅ 2 way binding support</li>
+      <li>✅ Drag and Drop Support</li>
+      <li>✅ File Compress Support Using compressorjs </li>
+      <li>✅ Base 64 Support </li>
+      <li>✅ Various File Extentions Preview Icons </li>
+      <!-- <li>✅ Fully Customizable Styling Using Sass Variables ! </li> -->
+    </ul>
     <div class="install">
       <h2>install</h2>
       <code>
-                              npm install ez-uploader
-                            </code>
+                                  npm install ez-uploader
+                                </code>
       <code>
-                              yarn add ez-uploader
-                            </code>
+                                  yarn add ez-uploader
+                                </code>
     </div>
 
     <div class="usage">
@@ -66,6 +78,7 @@ const onValidationError = (e: ErrorType | null) => {
       <basic></basic>
       <multiple></multiple>
       <urls></urls>
+      <!-- <SassVars></SassVars> -->
     </div>
 
     <div class="props">
@@ -97,14 +110,37 @@ const onValidationError = (e: ErrorType | null) => {
     </div>
 
 
+    <!-- <div class="sass-vars">
+      Sass Variables
+      <pre>
+
+        <code>
+
+        </code>
+      </pre>
+      
+      <ul>
+        <li>$ez-uploader-placeholder-font-size</li>
+        <li>$ez-uploader-container-rounded</li>
+        <li>$ez-uploader-container-min-height</li>
+        <li>$ez-uploader-preview-max-height</li>
+        <li>$ez-uploader-hover-transition</li>
+        <li>$ez-uploader-preview-item-img-height</li>
+        <li>$ez-uploader-border-color</li>
+        <li>$ez-uploader-border-hover-color</li>
+        <li>$ez-uploader-preview-item-overlay-bg</li>
+        <li>$ez-uploader-action-btn-hover-bg</li>
+        <li>$ez-uploader-preview-max-width</li>
+      </ul>
+    </div> -->
+
+
 
 
   </div>
 </template>
 
 <style  lang="scss">
-@use './scss/base/variables';
-@forward './scss/ez-uploader.scss';
 
 * {
   box-sizing: border-box;
@@ -197,6 +233,16 @@ pre {
     font-size: 28px;
     font-weight: bold;
     text-align: center;
+  }
+
+
+  ul {
+    list-style: none;
+
+    li {
+      font-size: 18px;
+      margin: 20px 0;
+    }
   }
 
   code {

@@ -1,10 +1,13 @@
 # Ez File Uploader Component For Vue 3
 
 This a File Upload Component For Vue 3
-   1. Support 2 way binding with v-model
-   2. Strognly Typed With Typescript
-   3. Fully Customizable With Props and Slots
-   4. Eazy To Use 
+   - ✅ Built With TypeScript 💙
+   - ✅ 2 way binding support
+   - ✅ Drag and Drop Support
+   - ✅ File Compress Support Using compressorjs
+   - ✅ Fully Customizable Styling Using Sass Variables !
+   - ✅ Base 64 Support
+   - ✅ Various File Extentions Preview Icons
 
 ## Usage
 
@@ -55,3 +58,4 @@ This a File Upload Component For Vue 3
 
 ## Events
 - @validationError {errorMessage, errorType , fileName?}
+- @base64Generated (base664 : string | string[])

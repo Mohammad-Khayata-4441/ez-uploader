@@ -10,8 +10,8 @@ const file = ref(null);
         <div class="form">
 
             <div class="form-control">
-                <label>Single File (Default)</label>
-                <EzUploader :base64="true" @base64Generated="console.log($event)"  v-model="file" />
+                <label>Sass Variables </label>
+                <EzUploader :base64="true" @base64Generated="console.log($event)" v-model="file" />
             </div>
 
         </div>
@@ -42,3 +42,10 @@ const file = ref(null)
 
     </div>
 </template>
+
+<style lang="scss">
+// @use '../../scss/base/variables';
+// @forward '../../scss/ez-uploader.scss';
+
+$ez-uploader-border-color : green;
+</style>

@@ -1,7 +1,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import EzUploader from '../../lib/main'
+import EzUploader from '../ez-uploader.vue'
 const files = ref([]);
 const deletedUrls = ref<string[]>([])
 const urls = ref([
@@ -83,3 +83,12 @@ const urls = ref([
         </div>
     </div>
 </template>
+
+
+<style lang="scss">
+@use '../../scss/base/variables';
+@forward '../../scss/ez-uploader.scss';
+
+$ez-uploader-border-color:green;
+
+</style>
