@@ -40,9 +40,18 @@ This a File Upload Component For Vue 3
 ```
 
 ## Props
-- maxSize  :  number  (max file size per mb)
-- maxCount  :  number (max count of files in multiple)
-- quality  :  number (quality from 0.1 to 1 ) default   :   1
-- accept  :  string (HTML Input File Accept Attribute)
+
+
+| Name           | Desc                                   | Default | Type                    |
+| -------------- | -------------------------------------- | ------- | ----------------------- |
+| base64         | Provide Base 64 for output             | false   | boolean                 |
+| contain        | Contain Preview Images                 | true    | boolean                 |
+| cover          | Cover Preview Images                   | false   | boolean                 |
+| deleteBtnClass | class for delete btn                    |         | string                  |
+| accept         | Set File Accept For the HTML File input | image/* | string (HTML Accept attribute) |
+| quality        | Compress the quality of the uploaded image | 1 | number (0.1 to 1) |
+
+
+
 ## Events
 - @validationError {errorMessage, errorType , fileName?}

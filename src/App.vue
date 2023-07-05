@@ -23,7 +23,8 @@ const props = {
   contain: { desc: 'Contain Preview Images', default: "true", type: "boolean" },
   cover: { desc: 'Cover Preview Images', default: "false", type: "boolean" },
   deleteBtnClass: { desc: 'class for delete btn', default: "", type: "string" },
-  // 'v-model:deletedUrls': () => [],
+  'url': { desc: "in modify pages ... you can preview the old image by providing its url as prop , and you can delete some if they are multipe using v-mode:deleted-urls ", default: "[ ]", type: "string" },
+  'v-model:deleted-urls': { desc: "When You use v-model:url  , you can access the deleted images (urls)", default: "", type: "string[]" },
   // file: null,
   accept: { desc: 'Set File Accept For the HTML File input', default: "image/*", type: "string (HTML Accept attribute)" },
   quality: { desc: 'Compress the quality of the uploaded image', default: "1", type: "number (0.1 to 1)" },
@@ -52,11 +53,11 @@ const onValidationError = (e: ErrorType | null) => {
     <div class="install">
       <h2>install</h2>
       <code>
-                          npm install ez-uploader
-                        </code>
+                              npm install ez-uploader
+                            </code>
       <code>
-                          yarn add ez-uploader
-                        </code>
+                              yarn add ez-uploader
+                            </code>
     </div>
 
     <div class="usage">
@@ -116,20 +117,22 @@ const onValidationError = (e: ErrorType | null) => {
 .example {
   display: grid;
   grid-template-columns: 400px auto;
+
   @media (max-width:1000px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
   }
+
   align-items: center;
   gap: 24px;
 }
 
- pre{
+pre {
   width: 100%;
- }
+}
 
 .props {
   width: 100%;
@@ -138,7 +141,8 @@ const onValidationError = (e: ErrorType | null) => {
 
   table {
 
-      border-collapse: collapse;
+    border-collapse: collapse;
+
     thead {
       margin-bottom: 24px;
 
@@ -150,7 +154,7 @@ const onValidationError = (e: ErrorType | null) => {
 
     td {
       border: 1px solid gray;
-      
+
       padding: 10px;
       border-left: none;
       border-right: none;
@@ -181,9 +185,11 @@ const onValidationError = (e: ErrorType | null) => {
 
   color: white;
   margin: auto;
+
   @media (min-width:1000px) {
     padding: 2rem;
   }
+
   max-width: 960px;
 
   .title {
