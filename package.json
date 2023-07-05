@@ -2,7 +2,7 @@
   "name": "ez-uploader",
   "author": "Mohammad Khayata",
   "private": false,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "license": "MIT",
   "files": [
