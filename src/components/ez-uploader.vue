@@ -109,7 +109,6 @@ function resetValidation() {
   emit("validationError", null);
 }
 const toMb = (fileSize: number) => fileSize / 1000000;
-const urlFileName = (url: string) => url.split('/')[url.split('/').length - 1] ?? url;
 async function validateFile(file: File) {
   if (props.maxSize !== null || props.maxSize !== undefined && (props.maxSize >= toMb(file.size))) {
     resetValidation();
