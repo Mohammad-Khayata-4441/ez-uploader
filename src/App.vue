@@ -116,14 +116,20 @@ const onValidationError = (e: ErrorType | null) => {
 .example {
   display: grid;
   grid-template-columns: 400px auto;
+  @media (max-width:1000px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
   align-items: center;
   gap: 24px;
 }
 
-pre {
-  height: max-content;
-  width: max-content;
-}
+ pre{
+  width: 100%;
+ }
 
 .props {
   width: 100%;
@@ -175,12 +181,15 @@ pre {
 
   color: white;
   margin: auto;
-  padding: 2rem;
+  @media (min-width:1000px) {
+    padding: 2rem;
+  }
   max-width: 960px;
 
   .title {
     color: #41B883;
     font-size: 28px;
+    font-weight: bold;
     text-align: center;
   }
 

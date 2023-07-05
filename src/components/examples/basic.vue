@@ -11,7 +11,7 @@ const file = ref(null);
 
             <div class="form-control">
                 <label>Single File (Default)</label>
-                <EzUploader v-model="file" />
+                <EzUploader :base64="true" @base64Generated="console.log($event)"  v-model="file" />
             </div>
 
         </div>

@@ -30,7 +30,16 @@ const urls = ref([
                     <p></p>
                     <label>Attached urls</label>
                     <EzUploader multiple v-model:url="urls" v-model:deletedUrls="deletedUrls" v-model="files" />
+                    <pre>
+    urls :
+    {{ urls.map(s => s.split('.')[s.split('.').length - 2].substring(0,10) + '...' ) }}
+    
+    deletedUrls :
+        
+        {{ deletedUrls.map(s => s.split('.')[s.split('.').length - 2].substring(0,10) + '...' ) }}
 
+
+        </pre>
                 </div>
 
 
@@ -69,18 +78,7 @@ const urls = ref([
                     }}
 </code>
 </pre>
-            <pre>
-    urls :
-    {{ urls.map(s => s.split('.')[s.split('.').length - 2]) }}
-    
-    deletedUrls :
-    <pre>
-        
-        {{ deletedUrls.map(s => s.split('.')[s.split('.').length - 2]) }}
-    </pre>
 
-
-        </pre>
 
         </div>
     </div>

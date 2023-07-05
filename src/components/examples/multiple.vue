@@ -11,7 +11,7 @@ const files = ref([]);
 
             <div class="form-control">
                 <label>Multi Files </label>
-                <EzUploader multiple v-model="files" />
+                <EzUploader base64  @base64-generated="console.log($event)" multiple v-model="files" />
             </div>
 
 

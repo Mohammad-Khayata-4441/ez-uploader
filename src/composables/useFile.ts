@@ -1,12 +1,12 @@
-import axios ,{type AxiosRequestConfig} from 'axios'
+import axios, { type AxiosRequestConfig } from 'axios'
 // ! DONT TOUCH THIS FILE
-export type DocumentType  = 'pdf' | 'excel'|'word' |'text'
+export type DocumentType = 'pdf' | 'excel' | 'word' | 'text'
 export type FileType = 'image' | 'video' | DocumentType
 
 
 export const useFile = () => {
 
-  
+
   const IMAGE_EXTENTIONS = ['jpg', 'png', 'jpeg', 'webp', 'svg']
   const EXCEL_EXTENTIONS = ['xlsx', 'xlsm', 'xlsb', 'xltx', 'csv']
   const VIDEO_EXTENTIONS = ['mp4', 'mov', 'mkv', 'flv', 'avi', 'webm']
@@ -16,22 +16,24 @@ export const useFile = () => {
 
 
 
-  const fileExtentions = new Map<FileType , string[]>()
+  const fileExtentions = new Map<FileType, string[]>([
+    ['excel', EXCEL_EXTENTIONS],
+    ['image', IMAGE_EXTENTIONS],
+    ['pdf', PDF_EXTENTIONS],
+    ['text', TEXT_EXTENTIONS],
+    ['video', VIDEO_EXTENTIONS],
+    ['word', WORD_EXTENTIONS],
+  ])
 
-  fileExtentions.set('excel',EXCEL_EXTENTIONS)
-  fileExtentions.set('image',IMAGE_EXTENTIONS)
-  fileExtentions.set('pdf',PDF_EXTENTIONS)
-  fileExtentions.set('text',TEXT_EXTENTIONS)
-  fileExtentions.set('video',VIDEO_EXTENTIONS)
-  fileExtentions.set('word',WORD_EXTENTIONS)
+
 
   const toBase64 = (file: File) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       const reader = new FileReader()
 
       reader.readAsDataURL(file)
       reader.onload = () => {
-        resolve(reader.result)
+        resolve(reader.result as string)
       }
       reader.onerror = error => reject(error)
     })
@@ -46,7 +48,7 @@ export const useFile = () => {
   }
 
 
-  const isOfType = (fileExt:string , type:FileType ) =>fileExtentions.get(type)?.includes(fileExt)
+  const isOfType = (fileExt: string, type: FileType) => fileExtentions.get(type)?.includes(fileExt)
 
 
   const getFileName = (fileName: string) => {
@@ -61,19 +63,19 @@ export const useFile = () => {
     return `${(+size / 1000000).toFixed(2)}MB`
   }
 
-  function getFileType(fileExt: string):FileType {
-    let fileType:FileType ='image' ;
+  function getFileType(fileExt: string): FileType {
+    let fileType: FileType = 'image';
 
-    fileExtentions.forEach((exts , key)=>{
-      if(isOfType(fileExt , key))
+    fileExtentions.forEach((exts, key) => {
+      if (isOfType(fileExt, key))
 
-      fileType = key
+        fileType = key
 
     })
 
-    
-    return  fileType;
-    
+
+    return fileType;
+
   }
 
 
@@ -98,9 +100,9 @@ export const useFile = () => {
     fileInput.click();
   }
 
-  async function downloadFile(fileUrl: string,config:AxiosRequestConfig = {responseType:'blob'}) {
-     axios.get(fileUrl,{...config}).then(({ data }:any) => {
-       const downloadUrl = window.URL.createObjectURL(new Blob([data]))
+  async function downloadFile(fileUrl: string, config: AxiosRequestConfig = { responseType: 'blob' }) {
+    axios.get(fileUrl, { ...config }).then(({ data }: any) => {
+      const downloadUrl = window.URL.createObjectURL(new Blob([data]))
       const link = document.createElement('a')
       link.href = downloadUrl
       link.setAttribute('download', downloadUrl) // any other extensio

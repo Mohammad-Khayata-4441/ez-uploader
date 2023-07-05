@@ -45,6 +45,7 @@
       justify-content: center;
       .ez-uploader__preview__preview-item__img{
         max-height: variables.$ez-uploader-preview-max-height;
+        max-width: variables.$ez-uploader-preview-max-width;
         border-radius: variables.$ez-uploader-container-rounded;
       }
       .ez-uploader__preview__preview-item__overlay{

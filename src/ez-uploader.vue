@@ -8,6 +8,7 @@ import { watch, computed, ref, useAttrs } from 'vue'
 import Upload from './icons/Upload.vue'
 import DeleteFile from './icons/DeleteFile.vue'
 import Expand from './icons/Expand.vue'
+import { File } from 'buffer'
 
 interface fileDto {
   file: File | undefined
@@ -50,14 +51,14 @@ const props = withDefaults(defineProps<propsType>(), {
   quality: 0.8,
   deleteUrlBtn: true,
   downloadBtn: false,
-  openBtn: true
+  openBtn: true,
 })
 
 
 //Emits
-const emit = defineEmits(['update:modelValue', 'update:url', 'update:deletedUrls'])
+const emit = defineEmits(['update:modelValue', 'update:url', 'update:deletedUrls', 'base64Generated'])
 // Bindings 
-const { getFileExt, getFileType, downloadFile } = useFile()
+const { getFileExt, getFileType, downloadFile, toBase64 } = useFile()
 const attrs = useAttrs()
 // State 
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -107,9 +108,11 @@ function deleteFile(e: any, fId: string) {
   })
   uploadEvent()
 }
-async function setFiles(filesList: FileList) {
-
+async function setFiles(filesList: File[]|Blob[]) {
+  console.log('setfiles')
   for (let file of filesList) {
+    console.log('isBlob', file instanceof Blob )
+    console.log('isFile', file instanceof File )
     const fileType = getFileType(getFileExt(file.name))
     if (fileType === 'image') {
       try {
@@ -138,19 +141,33 @@ async function setFiles(filesList: FileList) {
   }
   uploadEvent()
 }
-function uploadEvent() {
+async function uploadEvent() {
   if (isMulti.value) {
     emit('update:modelValue', localFiles.value.map(({ file }) => file))
     emit('update:url', localFiles.value.map(({ url }) => url))
+    if (props.base64) {
+      let bases: string[] = [];
+      localFiles.value.forEach(async (f) => {
+        const base64 = await toBase64(f.file as any);
+        bases.push(base64)
+      })
+      emit('base64Generated', bases);
+    }
   }
   else {
     emit('update:modelValue', localFiles.value.length ? localFiles.value[0].file : null)
     emit('update:url', localFiles.value.length ? localFiles.value[0].url : '')
+
+    if (props.base64) {
+      let b64 = await toBase64(localFiles.value[0].file as any)
+      emit('base64Generated', b64)
+    }
   }
 }
-function clickHandler(e: any) {
+function changeHandler(e: any) {
   const filesList: FileList = e.target.files
-
+  
+  console.log('change')
   setFiles(filesList)
 }
 function dropHandler(ev: any) {
@@ -280,7 +297,7 @@ initialize()
       </div>
     </button>
 
-    <input :id="`file-uploader-${id}`" ref="fileInput" v-bind:="$attrs" type="file" hidden @change="clickHandler">
+    <input :id="`file-uploader-${id}`" ref="fileInput" v-bind:="$attrs" type="file" hidden @change="changeHandler">
 
   </div>
 </template>

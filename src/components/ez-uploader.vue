@@ -59,11 +59,12 @@ const emit = defineEmits<{
   (e: "update:url", url?: string | string[]): void;
   (e: "update:deletedUrls", urls: string[]): void;
   (e: "validationError", error: ErrorType | null): void;
+  (e: "base64Generated", b64: string[] | string | null): void;
 }>();
 
 
 // Bindings
-const { getFileExt, getFileType, downloadFile } = useFile();
+const { getFileExt, getFileType, toBase64 } = useFile();
 const attrs = useAttrs();
 // State
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -139,49 +140,77 @@ async function setFiles(filesList: FileList) {
     });
     return;
   }
-  for (let file of filesList) {
-    validateFile(file)
-      .then(async () => {
-        const fileType = getFileType(getFileExt(file.name));
-        if (fileType === "image") {
-          try {
-            file = await compressFile(file);
-          } catch (er) {
-            console.error(er);
-          }
-        }
+  // for (let file of filesList) {
+  const files = [...filesList];
 
-        if (!isMulti.value) {
-          localFiles.value = [];
-          localUrls.value = [];
-        }
+  const proms = files.map((file) => validateFile(file).then(async () => {
 
-        localFiles.value.push({
-          file,
-          id: uuid(),
-          type: fileType,
-          url: URL.createObjectURL(file),
-        });
+    const fileType = getFileType(getFileExt(file.name));
+    if (fileType === "image") {
+      try {
+        file = await compressFile(file);
+      } catch (er) {
+        console.error(er);
+      }
+    }
 
-        console.log('resolved', localFiles.value)
+    if (!isMulti.value) {
+      localFiles.value = [];
+      localUrls.value = [];
+    }
 
-        uploadEvent();
-      })
-      .catch((error) => {
-        console.log('error occured', error)
-        emit("validationError", error);
-      });
-  }
+    localFiles.value.push({
+      file,
+      id: uuid(),
+      type: fileType,
+      url: URL.createObjectURL(file),
+    });
+    return file
+  }).catch((error) => {
+    console.log('error occured', error)
+    emit("validationError", error);
+  })
+
+
+  )
+
+  await Promise.all(proms);
+  uploadEvent();
+
+
+
 }
 
-function uploadEvent() {
+async function uploadEvent() {
   if (isMulti.value) {
     emit("update:modelValue", localFiles.value.map(({ file }) => file as File)
     );
 
-  } else {
+    if (props.base64) {
+      console.log('base 64 check')
+
+      Promise.all(localFiles.value.map(async (f) => {
+        const base64 = await toBase64(f.file as any);
+        return base64
+      })).then((bases) => {
+
+
+        emit('base64Generated', bases);
+
+      }).catch((er) => {
+        console.log(er)
+      })
+
+    }
+
+  }
+  else {
     emit("update:modelValue", localFiles.value.length ? localFiles.value[0].file as File : null
     );
+    if (props.base64) {
+      let b64 = localFiles.value.length ? await toBase64(localFiles.value[0]?.file as any) : null
+      emit('base64Generated', b64)
+    }
   }
 }
 function clickHandler(e: any) {
@@ -320,7 +349,7 @@ initialize();
 
 
 
-    
+
 
 
 
