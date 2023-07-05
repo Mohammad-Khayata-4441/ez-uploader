@@ -34,7 +34,7 @@ This a File Upload Component For Vue 3
 </script>
 
 <template>
-  <EzUploader multile v-model="files"></EzUploader>
+  <EzUploader  multiple v-model="files"></EzUploader>
 </template>
 
 ```
