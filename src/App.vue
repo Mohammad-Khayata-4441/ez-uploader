@@ -60,6 +60,7 @@ const onValidationError = (e: ErrorType | null) => {
       <li>✅ File Compress Support Using compressorjs </li>
       <li>✅ Base 64 Support </li>
       <li>✅ Various File Extentions Preview Icons </li>
+      
       <!-- <li>✅ Fully Customizable Styling Using Sass Variables ! </li> -->
     </ul>
     <div class="install">
